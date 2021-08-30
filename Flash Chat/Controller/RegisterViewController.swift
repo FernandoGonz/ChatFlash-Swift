@@ -32,7 +32,7 @@ class RegisterViewController: UIViewController {
                 if let e: Error = error {
                     print(e.localizedDescription)
                 } else {
-                    self.performSegue(withIdentifier: "RegisterToChat", sender: RegisterViewController.self)
+                    self.performSegue(withIdentifier: K.registerSegue, sender: RegisterViewController.self)
                 }
             }
             

@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
 //            charIndex += 1
 //        }
         
-        titleLabel.text = "⚡️FlashChat"
+        titleLabel.text = K.appName
     
     }
 

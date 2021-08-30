@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
                 if let e: Error = error {
                     print("Error: \(e.localizedDescription)")
                 } else {
-                    self.performSegue(withIdentifier: "LoginToChat", sender: LoginViewController.self)
+                    self.performSegue(withIdentifier: K.loginSegue, sender: LoginViewController.self)
                 }
             }
             

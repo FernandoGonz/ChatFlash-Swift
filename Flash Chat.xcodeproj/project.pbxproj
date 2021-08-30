@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D4D617E26DD39BF006AE748 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D617D26DD39BF006AE748 /* K.swift */; };
+		4D4D618026DD45EE006AE748 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D617F26DD45EE006AE748 /* Message.swift */; };
+		4D4D618326DD50F8006AE748 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D618126DD50F8006AE748 /* MessageCell.swift */; };
+		4D4D618426DD50F8006AE748 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D4D618226DD50F8006AE748 /* MessageCell.xib */; };
 		4DBAC76226D83F3200EE9B95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAC76126D83F3200EE9B95 /* AppDelegate.swift */; };
 		4DBAC76426D83F3200EE9B95 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAC76326D83F3200EE9B95 /* SceneDelegate.swift */; };
 		4DBAC76626D83F3200EE9B95 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAC76526D83F3200EE9B95 /* MainViewController.swift */; };
@@ -22,6 +26,10 @@
 
 /* Begin PBXFileReference section */
 		434DD3714A4F802C367A76D9 /* Pods-Flash Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flash Chat.release.xcconfig"; path = "Target Support Files/Pods-Flash Chat/Pods-Flash Chat.release.xcconfig"; sourceTree = "<group>"; };
+		4D4D617D26DD39BF006AE748 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		4D4D617F26DD45EE006AE748 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		4D4D618126DD50F8006AE748 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		4D4D618226DD50F8006AE748 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		4DBAC75E26D83F3200EE9B95 /* Flash Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flash Chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DBAC76126D83F3200EE9B95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DBAC76326D83F3200EE9B95 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +88,7 @@
 				4DBAC76C26D83F3400EE9B95 /* LaunchScreen.storyboard */,
 				4DBAC76F26D83F3400EE9B95 /* Info.plist */,
 				4DCC5F1226DA9496008D06F0 /* GoogleService-Info.plist */,
+				4D4D617D26DD39BF006AE748 /* K.swift */,
 			);
 			path = "Flash Chat";
 			sourceTree = "<group>";
@@ -88,6 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				4DBAC76726D83F3200EE9B95 /* Main.storyboard */,
+				4D4D618126DD50F8006AE748 /* MessageCell.swift */,
+				4D4D618226DD50F8006AE748 /* MessageCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -106,6 +117,7 @@
 		4DBAC77726D83F6700EE9B95 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4D4D617F26DD45EE006AE748 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D4D618426DD50F8006AE748 /* MessageCell.xib in Resources */,
 				4DBAC76E26D83F3400EE9B95 /* LaunchScreen.storyboard in Resources */,
 				4DCC5F1326DA9496008D06F0 /* GoogleService-Info.plist in Resources */,
 				4DBAC76B26D83F3400EE9B95 /* Assets.xcassets in Resources */,
@@ -243,11 +256,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DBAC76626D83F3200EE9B95 /* MainViewController.swift in Sources */,
+				4D4D617E26DD39BF006AE748 /* K.swift in Sources */,
 				4DBAC76226D83F3200EE9B95 /* AppDelegate.swift in Sources */,
 				4DBAC76426D83F3200EE9B95 /* SceneDelegate.swift in Sources */,
 				4DBAC77D26D8481900EE9B95 /* LoginViewController.swift in Sources */,
+				4D4D618026DD45EE006AE748 /* Message.swift in Sources */,
 				4DBAC77F26D8482800EE9B95 /* ChatViewController.swift in Sources */,
 				4DBAC77B26D8480400EE9B95 /* RegisterViewController.swift in Sources */,
+				4D4D618326DD50F8006AE748 /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
