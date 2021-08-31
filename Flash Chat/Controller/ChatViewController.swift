@@ -13,10 +13,10 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextField: UITextField!
     
-    var messages: [Message] = [
-        Message(sender: "sury@gmail.com", body: "Hey!!"),
-        Message(sender: "ing.fernandogonzalez@gmail.com", body: "What's up men!")
-    ]
+    var messages: [Message] = []
+    
+    // creating an instance of Firestore
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +29,72 @@ class ChatViewController: UIViewController {
         tableView.dataSource = self
         
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
+        
+        loadMessages()
+        
+    }
+    
+    func loadMessages() {
+        db.collection(K.FStore.collectionName).order(by: K.FStore.dateField, descending: false).addSnapshotListener { querySnapshot, error in
+            
+            self.messages = []
+            
+            if let e = error {
+                print("There was an issue retrieving data from firestore: \(e.localizedDescription)")
+            } else {
+                if let snapshotDocuments: [QueryDocumentSnapshot] = querySnapshot?.documents {
+                    for document: QueryDocumentSnapshot in snapshotDocuments {
+                        // document.data() this return an dictionary for each document [sender: value, message: value]
+                        let data: [String: Any] = document.data()
+                        if let sender: String = data[K.FStore.senderField] as? String, let body: String = data[K.FStore.bodyField] as? String {
+                            let newMessage: Message = Message(sender: sender, body: body)
+                            self.messages.append(newMessage)
+            
+                            // Refreshing tableView
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+       
+        // Use the code below only when you need ONE document
+//        db.collection(K.FStore.collectionName).getDocuments { querySnapshot, error in
+//            if let e = error {
+//                print("There was an issue retrieving data from firestore: \(e.localizedDescription)")
+//            } else {
+//                if let snapshotDocuments: [QueryDocumentSnapshot] = querySnapshot?.documents {
+//                    for document: QueryDocumentSnapshot in snapshotDocuments {
+//                        // document.data() this return an dictionary for each document [sender: value, message: value]
+//                        let data: [String: Any] = document.data()
+//                        if let sender: String = data[K.FStore.senderField] as? String, let body: String = data[K.FStore.bodyField] as? String {
+//                            let newMessage: Message = Message(sender: sender, body: body)
+//                            self.messages.append(newMessage)
+//
+//                            // Refreshing tableView
+//                            DispatchQueue.main.async {
+//                                self.tableView.reloadData()
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
     
     @IBAction func sendBtnPressed(_ sender: UIButton) {
+        if let messageBody: String = messageTextField.text, let messageSender: String = Auth.auth().currentUser?.email {
+            // messageBody and MessageSender are not nil
+            db.collection(K.FStore.collectionName).addDocument(data: [K.FStore.senderField: messageSender, K.FStore.bodyField: messageBody, K.FStore.dateField: Date().timeIntervalSince1970]) { error in
+                if let e = error {
+                    print("There was an issue saving data on firestore: \(e.localizedDescription)")
+                } else {
+                    print("Successfully saved data!.")
+                }
+            }
+        }
     }
     
     
