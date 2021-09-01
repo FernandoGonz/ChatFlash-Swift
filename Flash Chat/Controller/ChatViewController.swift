@@ -52,7 +52,11 @@ class ChatViewController: UIViewController {
             
                             // Refreshing tableView
                             DispatchQueue.main.async {
+                                // tableView.reloadData triggers UITableViewDataSource
                                 self.tableView.reloadData()
+                                // Go to the last message
+                                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                                self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
                             }
                         }
                     }
@@ -92,6 +96,10 @@ class ChatViewController: UIViewController {
                     print("There was an issue saving data on firestore: \(e.localizedDescription)")
                 } else {
                     print("Successfully saved data!.")
+                    DispatchQueue.main.async {
+                        // Because we are in a close, we need to update the UI on DispathQueue
+                        self.messageTextField.text = ""
+                    }
                 }
             }
         }
@@ -123,20 +131,38 @@ class ChatViewController: UIViewController {
 
 //MARK: - UITableViewDelegate
 
-// UITableViewDataSource is responsible to fill the tableView with the information cells
+// UITableViewDataSource is responsible to fill the tableView with the information cells when tableView.reloadData() is trigged
 extension ChatViewController: UITableViewDataSource {
     // This methods employes of many rows should have and return it
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
-    // Returns a TableViewCell. IndexPath is the position
+    // Returns a cell según messages.count. IndexPath is the position
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let message: Message = messages[indexPath.row]
+        
         // Creating a UITableViewCell (a row)
         let cell: MessageCell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
-        // Adding text to the label
+        
+        // Adding text to the label for row with index indexPath
         cell.messageLabel.text = "\(messages[indexPath.row].body)"
         
+        // We need the currentUser.email to define what messageCell will show
+        // Because this is a message from the current user
+        if Auth.auth().currentUser?.email == message.sender {
+            // we will hide the left image (other user)
+            cell.leftImageView.isHidden = true
+            cell.rightImageView.isHidden = false
+            // for the color, you need to add a Color set and you need to declare it to K.swift file
+            cell.bubbleViewMessage.backgroundColor = UIColor(named: K.BrandColors.lightPurple)
+        } else {
+            // Message from the other users
+            cell.leftImageView.isHidden = false
+            cell.rightImageView.isHidden = true
+            cell.bubbleViewMessage.backgroundColor = UIColor(named: K.BrandColors.lightBlue)
+        }
     
         return cell
     }
